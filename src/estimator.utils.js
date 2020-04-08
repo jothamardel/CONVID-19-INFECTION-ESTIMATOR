@@ -1,12 +1,10 @@
 
-
 const currentlyInfectedAndSevereImpact = (input, value) => input.reportedCases * value;
 
+const estimateNumberOfDays = (periodType, time) => {
+  const period = periodType.toLowerCase();
 
-const estimateNumberOfDays = (period, time) => {
-  period = period.toLowerCase()
-
-  switch(period){
+  switch (period) {
     case 'days':
       return time;
     case 'weeks':
@@ -18,12 +16,11 @@ const estimateNumberOfDays = (period, time) => {
   }
 };
 
-const powerOfFactor = (days) => {
- return days > 2 ? (2 ** Math.floor(days/3)) : days
-}
+const powerOfFactor = (days) => (days > 2 ? (2 ** Math.floor(days / 3)) : days);
+
 
 module.exports = {
   currentlyInfectedAndSevereImpact,
   estimateNumberOfDays,
   powerOfFactor
-}
+};

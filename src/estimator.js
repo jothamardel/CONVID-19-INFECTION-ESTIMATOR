@@ -26,11 +26,13 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
-      infectionsByRequestedTime: currentlyInfectedWithConvid * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+      infectionsByRequestedTime: currentlyInfectedWithConvid
+      * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      infectionsByRequestedTime: severeImpactWithConvid * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+      infectionsByRequestedTime: severeImpactWithConvid
+      * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
     }
   };
 };
