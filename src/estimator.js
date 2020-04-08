@@ -15,7 +15,7 @@ data = {
 }
 
 
-const currentlyInfectedAndSevereImpact = (data, value) => data.reportedCases * value
+const currentlyInfectedAndSevereImpact = (inputData, value) => inputData.reportedCases * value
 
 
 
