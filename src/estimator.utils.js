@@ -18,9 +18,13 @@ const estimateNumberOfDays = (periodType, time) => {
 
 const powerOfFactor = (days) => (days > 2 ? (2 ** Math.floor(days / 3)) : days);
 
+const computeInfectionsByRequestedTime = (currentlyInfectedWithConvid, powerOfFactorValue) => (
+  currentlyInfectedWithConvid * powerOfFactorValue
+);
 
 module.exports = {
   currentlyInfectedAndSevereImpact,
   estimateNumberOfDays,
-  powerOfFactor
+  powerOfFactor,
+  computeInfectionsByRequestedTime
 };

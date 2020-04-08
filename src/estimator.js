@@ -1,6 +1,7 @@
 const { currentlyInfectedAndSevereImpact } = require('./estimator.utils');
 const { estimateNumberOfDays } = require('./estimator.utils');
 const { powerOfFactor } = require('./estimator.utils');
+const { computeInfectionsByRequestedTime } = require('./estimator.utils');
 
 const inputData = {
   region: {
@@ -18,21 +19,34 @@ const inputData = {
 
 const covid19ImpactEstimator = (data) => {
   const input = data;
-  const { periodType, timeToElapse } = data;
+  const { periodType, timeToElapse, totalHospitalBeds } = data;
+
   const currentlyInfectedWithConvid = currentlyInfectedAndSevereImpact(inputData, 10);
   const severeImpactWithConvid = currentlyInfectedAndSevereImpact(inputData, 50);
 
+  const computedInfectionsByRequestedTime = computeInfectionsByRequestedTime(
+    currentlyInfectedWithConvid,
+    powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+  );
+  const computedInfectionsByRequestedTimeSevere = computeInfectionsByRequestedTime(
+    severeImpactWithConvid,
+    powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+  );
   return {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
-      infectionsByRequestedTime: currentlyInfectedWithConvid
-      * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+      infectionsByRequestedTime: computedInfectionsByRequestedTime,
+      severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
+      hospitalBedsByRequestedTime:
+      (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15)
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      infectionsByRequestedTime: severeImpactWithConvid
-      * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+      infectionsByRequestedTime: computedInfectionsByRequestedTimeSevere,
+      severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
+      hospitalBedsByRequestedTime:
+      (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15)
     }
   };
 };
