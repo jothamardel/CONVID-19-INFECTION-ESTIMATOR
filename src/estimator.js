@@ -1,3 +1,6 @@
+const { currentlyInfectedAndSevereImpact } = require('./estimator.utils');
+const { estimateNumberOfDays } = require('./estimator.utils');
+const { powerOfFactor } = require('./estimator.utils');
 
 const inputData = {
   region: {
@@ -13,12 +16,9 @@ const inputData = {
   totalHospitalBeds: 1380614
 };
 
-
-const currentlyInfectedAndSevereImpact = (input, value) => input.reportedCases * value;
-
-
 const covid19ImpactEstimator = (data) => {
   const input = data;
+  const { periodType, timeToElapse } = data;
   const currentlyInfectedWithConvid = currentlyInfectedAndSevereImpact(inputData, 10);
   const severeImpactWithConvid = currentlyInfectedAndSevereImpact(inputData, 50);
 
@@ -26,18 +26,19 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
-      infectionsByRequestedTime: currentlyInfectedWithConvid * 512
+      infectionsByRequestedTime: currentlyInfectedWithConvid * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      infectionsByRequestedTime: severeImpactWithConvid * 512
+      infectionsByRequestedTime: severeImpactWithConvid * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
     }
   };
 };
 
 
-// console.log(severeImpact())
-// console.log(covid19ImpactEstimator(inputData))
+// console.log(estimateNumberOfDays(inputData.periodType, inputData.timeToElapse))
+// console.log(powerOfFactor(inputData.timeToElapse))
+// console.log(covid19ImpactEstimator(inputData));
 
 module.exports = {
   covid19ImpactEstimator
