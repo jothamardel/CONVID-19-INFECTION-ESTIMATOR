@@ -41,7 +41,10 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
-      infectionsByRequestedTime: computedInfectionsByRequestedTime,
+      infectionsByRequestedTime: currentlyInfectedWithConvid * 512,
+      impactPerDay: Math.round((currentlyInfectedWithConvid * 512) / 28),
+      impactOver1Week: Math.round((currentlyInfectedWithConvid * 512) / 28) * 7,
+      impactOver1Month: Math.round((currentlyInfectedWithConvid * 512) / 28) * 30,
       severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
       hospitalBedsByRequestedTime:
       (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15),
@@ -55,7 +58,10 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      infectionsByRequestedTime: computedInfectionsByRequestedTimeSevere,
+      infectionsByRequestedTime: severeImpactWithConvid * 512,
+      severeImpactPerDay: Math.round((severeImpactWithConvid * 512) / 28),
+      severeImpactOver1Week: Math.round((severeImpactWithConvid * 512) / 28) * 7,
+      severeImpactOver1Month: Math.round((severeImpactWithConvid * 512) / 28) * 30,
       severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
       hospitalBedsByRequestedTime:
       (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15),
@@ -71,7 +77,7 @@ const covid19ImpactEstimator = (data) => {
 };
 
 
-// console.log(covid19ImpactEstimator(inputData));
+console.log(covid19ImpactEstimator(inputData));
 
 module.exports = {
   covid19ImpactEstimator
