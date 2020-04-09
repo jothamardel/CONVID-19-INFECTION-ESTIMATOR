@@ -71,8 +71,6 @@ const covid19ImpactEstimator = (data) => {
 };
 
 
-// console.log(estimateNumberOfDays(inputData.periodType, inputData.timeToElapse))
-// console.log(powerOfFactor(inputData.timeToElapse))
 // console.log(covid19ImpactEstimator(inputData));
 
 module.exports = {
