@@ -1,7 +1,9 @@
-const { currentlyInfectedAndSevereImpact } = require('./estimator.utils');
-const { estimateNumberOfDays } = require('./estimator.utils');
-const { powerOfFactor } = require('./estimator.utils');
-const { computeInfectionsByRequestedTime } = require('./estimator.utils');
+const {
+  currentlyInfectedAndSevereImpact,
+  estimateNumberOfDays,
+  powerOfFactor,
+  computeInfectionsByRequestedTime
+} = require('./estimator.utils');
 
 const inputData = {
   region: {
@@ -19,7 +21,10 @@ const inputData = {
 
 const covid19ImpactEstimator = (data) => {
   const input = data;
-  const { periodType, timeToElapse, totalHospitalBeds } = data;
+  const {
+    periodType, timeToElapse, totalHospitalBeds, region
+  } = data;
+  const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = region;
 
   const currentlyInfectedWithConvid = currentlyInfectedAndSevereImpact(inputData, 10);
   const severeImpactWithConvid = currentlyInfectedAndSevereImpact(inputData, 50);
@@ -39,14 +44,28 @@ const covid19ImpactEstimator = (data) => {
       infectionsByRequestedTime: computedInfectionsByRequestedTime,
       severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
       hospitalBedsByRequestedTime:
-      (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15)
+      (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15),
+      casesForICUByRequestedTime: computedInfectionsByRequestedTime * 0.05,
+      casesForVentilatorsByRequestedTime: computedInfectionsByRequestedTime * 0.02,
+      dollarsInFlight:
+      (computedInfectionsByRequestedTime * 0.65
+        * avgDailyIncomeInUSD
+        * avgDailyIncomePopulation
+        * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))).toFixed(2)
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
       infectionsByRequestedTime: computedInfectionsByRequestedTimeSevere,
       severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
       hospitalBedsByRequestedTime:
-      (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15)
+      (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15),
+      casesForICUByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.05,
+      casesForVentilatorsByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.02,
+      dollarsInFlight:
+      (computedInfectionsByRequestedTimeSevere * 0.65
+      * avgDailyIncomeInUSD
+      * avgDailyIncomePopulation
+      * powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))).toFixed(2)
     }
   };
 };
