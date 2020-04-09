@@ -1,8 +1,8 @@
 const {
-  currentlyInfectedAndSevereImpact,
-  estimateNumberOfDays,
-  powerOfFactor,
-  computeInfectionsByRequestedTime
+  currentlyInfectedAndSevereImpact
+  // estimateNumberOfDays,
+  // powerOfFactor,
+  // computeInfectionsByRequestedTime
 } = require('./estimator.utils');
 
 const inputData = {
@@ -21,22 +21,22 @@ const inputData = {
 
 const covid19ImpactEstimator = (data) => {
   const input = data;
-  const {
-    periodType, timeToElapse, totalHospitalBeds, region
-  } = data;
-  const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = region;
+  // const {
+  //   periodType, timeToElapse, totalHospitalBeds, region
+  // } = data;
+  // const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = region;
 
   const currentlyInfectedWithConvid = currentlyInfectedAndSevereImpact(inputData, 10);
   const severeImpactWithConvid = currentlyInfectedAndSevereImpact(inputData, 50);
 
-  const computedInfectionsByRequestedTime = computeInfectionsByRequestedTime(
-    currentlyInfectedWithConvid,
-    powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
-  );
-  const computedInfectionsByRequestedTimeSevere = computeInfectionsByRequestedTime(
-    severeImpactWithConvid,
-    powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
-  );
+  // const computedInfectionsByRequestedTime = computeInfectionsByRequestedTime(
+  //   currentlyInfectedWithConvid,
+  //   powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+  // );
+  // const computedInfectionsByRequestedTimeSevere = computeInfectionsByRequestedTime(
+  //   severeImpactWithConvid,
+  //   powerOfFactor(estimateNumberOfDays(periodType, timeToElapse))
+  // );
   return {
     data: input,
     impact: {
@@ -44,7 +44,7 @@ const covid19ImpactEstimator = (data) => {
       infectionsByRequestedTime: currentlyInfectedWithConvid * 512,
       impactPerDay: Math.round((currentlyInfectedWithConvid * 512) / 28),
       impactOver1Week: Math.round((currentlyInfectedWithConvid * 512) / 28) * 7,
-      impactOver1Month: Math.round((currentlyInfectedWithConvid * 512) / 28) * 30,
+      impactOver1Month: Math.round((currentlyInfectedWithConvid * 512) / 28) * 30
       // severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15),
@@ -61,7 +61,7 @@ const covid19ImpactEstimator = (data) => {
       infectionsByRequestedTime: severeImpactWithConvid * 512,
       severeImpactPerDay: Math.round((severeImpactWithConvid * 512) / 28),
       severeImpactOver1Week: Math.round((severeImpactWithConvid * 512) / 28) * 7,
-      severeImpactOver1Month: Math.round((severeImpactWithConvid * 512) / 28) * 30,
+      severeImpactOver1Month: Math.round((severeImpactWithConvid * 512) / 28) * 30
       // severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15),
