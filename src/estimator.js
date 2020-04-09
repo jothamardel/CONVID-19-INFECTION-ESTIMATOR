@@ -1,5 +1,6 @@
 const {
-  currentlyInfectedAndSevereImpact
+  currentlyInfectedAndSevereImpact,
+  computeImpactOfInfection
   // estimateNumberOfDays,
   // powerOfFactor,
   // computeInfectionsByRequestedTime
@@ -42,9 +43,9 @@ const covid19ImpactEstimator = (data) => {
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
       infectionsByRequestedTime: currentlyInfectedWithConvid * 512,
-      impactPerDay: Math.round((currentlyInfectedWithConvid * 512) / 28),
-      impactOver1Week: Math.round((currentlyInfectedWithConvid * 512) / 28) * 7,
-      impactOver1Month: Math.round((currentlyInfectedWithConvid * 512) / 28) * 30
+      impactPerDay: computeImpactOfInfection(currentlyInfectedWithConvid),
+      impactOver1Week: computeImpactOfInfection(currentlyInfectedWithConvid, 7),
+      impactOver1Month: computeImpactOfInfection(currentlyInfectedWithConvid, 30)
       // severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15),
@@ -59,9 +60,9 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
       infectionsByRequestedTime: severeImpactWithConvid * 512,
-      severeImpactPerDay: Math.round((severeImpactWithConvid * 512) / 28),
-      severeImpactOver1Week: Math.round((severeImpactWithConvid * 512) / 28) * 7,
-      severeImpactOver1Month: Math.round((severeImpactWithConvid * 512) / 28) * 30
+      severeImpactPerDay: computeImpactOfInfection(severeImpactWithConvid),
+      severeImpactOver1Week: computeImpactOfInfection(severeImpactWithConvid, 7),
+      severeImpactOver1Month: computeImpactOfInfection(severeImpactWithConvid, 30)
       // severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15),
@@ -77,8 +78,9 @@ const covid19ImpactEstimator = (data) => {
 };
 
 
-// console.log(covid19ImpactEstimator(inputData));
+console.log(covid19ImpactEstimator(inputData));
 
+export default covid19ImpactEstimator;
 module.exports = {
   covid19ImpactEstimator
 };
