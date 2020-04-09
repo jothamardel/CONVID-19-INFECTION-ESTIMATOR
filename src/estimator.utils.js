@@ -6,14 +6,12 @@ const estimateNumberOfDays = (periodType, time) => {
 
   if (period === 'days') {
     return time;
-    }
-  else if(period === 'weeks'){
+  } if (period === 'weeks') {
     return time * 7;
-    }
-  else if(period === 'months'){
+  } if (period === 'months') {
     return time * 30;
   }
-  
+  return time;
 };
 
 const powerOfFactor = (days) => (days > 2 ? (2 ** Math.floor(days / 3)) : days);
