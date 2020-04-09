@@ -78,9 +78,9 @@ const covid19ImpactEstimator = (data) => {
 };
 
 
-console.log(covid19ImpactEstimator(inputData));
+// console.log(covid19ImpactEstimator(inputData));
 
 export default covid19ImpactEstimator;
-module.exports = {
-  covid19ImpactEstimator
-};
+// module.exports = {
+//   covid19ImpactEstimator
+// };
