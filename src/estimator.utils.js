@@ -1,7 +1,7 @@
 
-const currentlyInfectedAndSevereImpact = (input, value) => input.reportedCases * value;
+export const currentlyInfectedAndSevereImpact = (input, value) => input.reportedCases * value;
 
-const estimateNumberOfDays = (periodType, time) => {
+export const estimateNumberOfDays = (periodType, time) => {
   const period = periodType.toLowerCase();
 
   if (period === 'days') {
@@ -14,20 +14,20 @@ const estimateNumberOfDays = (periodType, time) => {
   return time;
 };
 
-const powerOfFactor = (days) => (days > 2 ? (2 ** Math.floor(days / 3)) : days);
+// const powerOfFactor = (days) => (days > 2 ? (2 ** Math.floor(days / 3)) : days);
 
-const computeInfectionsByRequestedTime = (currentlyInfectedWithConvid, powerOfFactorValue) => (
-  currentlyInfectedWithConvid * powerOfFactorValue
-);
+// const computeInfectionsByRequestedTime = (currentlyInfectedWithConvid, powerOfFactorValue) => (
+//   currentlyInfectedWithConvid * powerOfFactorValue
+// );
 
-const computeImpactOfInfection = (
-  dataCurrentlyInfected, data, value = 1
-) => (dataCurrentlyInfected * (2 ** Math.trunc(data / 3)) * value);
+// const computeImpactOfInfection = (
+//   dataCurrentlyInfected, data, value = 1
+// ) => (dataCurrentlyInfected * (2 ** Math.trunc(data / 3)) * value);
 
-module.exports = {
-  currentlyInfectedAndSevereImpact,
-  computeImpactOfInfection,
-  estimateNumberOfDays,
-  powerOfFactor,
-  computeInfectionsByRequestedTime
-};
+// module.exports = {
+//   currentlyInfectedAndSevereImpact,
+//   computeImpactOfInfection,
+//   estimateNumberOfDays,
+//   powerOfFactor,
+//   computeInfectionsByRequestedTime
+// };
