@@ -1,6 +1,6 @@
 const {
-  currentlyInfectedAndSevereImpact,
-  computeImpactOfInfection
+  currentlyInfectedAndSevereImpact
+  // computeImpactOfInfection
   // estimateNumberOfDays,
   // powerOfFactor,
   // computeInfectionsByRequestedTime
@@ -59,9 +59,12 @@ const covid19ImpactEstimator = (data) => {
       currentlyInfected: currentlyInfectedWithConvid,
       infectionsByRequestedTime: currentlyInfectedWithConvid
       * (2 ** Math.trunc(timeToElapse / 3)),
-      impactPerDay: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse),
-      impactOver1Week: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse, 7),
-      impactOver1Month: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse, 30)
+      impactPerDay: currentlyInfectedWithConvid
+      * (2 ** Math.trunc(timeToElapse / 3)),
+      impactOver1Week: currentlyInfectedWithConvid
+      * (2 ** Math.trunc(timeToElapse / 3)) * 7,
+      impactOver1Month: currentlyInfectedWithConvid
+      * (2 ** Math.trunc(timeToElapse / 3)) * 30
       // severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15),
@@ -75,10 +78,10 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      infectionsByRequestedTime: severeImpactWithConvid * (2 ** Math.trunc(data.timeToElapse / 3)),
-      severeImpactPerDay: computeImpactOfInfection(severeImpactWithConvid, timeToElapse),
-      severeImpactOver1Week: computeImpactOfInfection(severeImpactWithConvid, timeToElapse, 7),
-      severeImpactOver1Month: computeImpactOfInfection(severeImpactWithConvid, timeToElapse, 30)
+      infectionsByRequestedTime: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)),
+      severeImpactPerDay: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)),
+      severeImpactOver1Week: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)) * 7,
+      severeImpactOver1Month: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)) * 30
       // severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15),
