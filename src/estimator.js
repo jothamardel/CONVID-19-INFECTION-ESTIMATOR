@@ -33,7 +33,7 @@ const infectionsByRequestedTime = (typeOfPeriod, elapseTime) => {
   switch (period) {
     case 'weeks':
       return (
-        Math.trunc((elapseTime / 3) * 7)
+        Math.trunc(elapseTime / 3) * 7
       );
     case 'months':
       return (
@@ -51,7 +51,7 @@ const covid19ImpactEstimator = (data) => {
   const casesReportedForSevereImpact = casesReported(reportedCases, 50);
   return {
     data,
-    imapct: {
+    imapact: {
       currentlyInfected: casesReportedForImpact,
       infectionsByRequestedTime: casesReportedForImpact
       * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
