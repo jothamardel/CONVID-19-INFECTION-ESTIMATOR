@@ -33,11 +33,11 @@ const infectionsByRequestedTime = (typeOfPeriod, elapseTime) => {
   switch (period) {
     case 'weeks':
       return (
-        Math.trunc(elapseTime / 3) * 7
+        Math.trunc((elapseTime / 3) * 7)
       );
     case 'months':
       return (
-        Math.trunc(elapseTime / 3) * 30
+        Math.trunc((elapseTime / 3) * 30)
       );
     default:
       return Math.trunc(elapseTime / 3);
@@ -65,7 +65,7 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-covid19ImpactEstimator(inputData);
+// covid19ImpactEstimator(inputData);
 
 // console.log(covid19ImpactEstimator(inputData));
 
