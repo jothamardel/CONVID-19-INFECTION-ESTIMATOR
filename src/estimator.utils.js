@@ -5,11 +5,11 @@ const estimateNumberOfDays = (periodType, time) => {
   const period = periodType.toLowerCase();
 
   if (period === 'days') {
-    return time;
+    return Math.trunc(time / 3);
   } if (period === 'weeks') {
-    return time * 7;
+    return Math.trunc(time / 3) * 7;
   } if (period === 'months') {
-    return time * 30;
+    return Math.trunc(time / 3) * 30;
   }
   return time;
 };
