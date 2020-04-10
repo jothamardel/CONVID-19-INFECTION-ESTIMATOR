@@ -1,10 +1,13 @@
-const {
-  currentlyInfectedAndSevereImpact,
-  // computeImpactOfInfection
-  estimateNumberOfDays
-  // powerOfFactor,
-  // computeInfectionsByRequestedTime
-} = require('./estimator.utils');
+
+import { currentlyInfectedAndSevereImpact, estimateNumberOfDays } from './estimator.utils';
+
+// const {
+//   currentlyInfectedAndSevereImpact,
+//   // computeImpactOfInfection
+//   estimateNumberOfDays
+//   // powerOfFactor,
+//   // computeInfectionsByRequestedTime
+// } = require('./estimator.utils');
 
 const inputData = {
   region: {
@@ -28,7 +31,7 @@ const inputData = {
 //     avgDailyIncomePopulation: 0.73
 //   },
 //   periodType: 'days',
-//   timeToElapse: 38,
+//   timeToElapse: 28,
 //   reportedCases: 2747,
 //   population: 92931687,
 //   totalHospitalBeds: 678874
@@ -57,6 +60,7 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
+      // infectionsByRequestedTime: 2 ** estimateNumberOfDays(periodType, timeToElapse)
       infectionsByRequestedTime: currentlyInfectedWithConvid
       * (2 ** estimateNumberOfDays(periodType, timeToElapse))
       // impactPerDay: currentlyInfectedWithConvid
@@ -78,6 +82,7 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
+      // infectionsByRequestedTime: 2 ** estimateNumberOfDays(periodType, timeToElapse)
       infectionsByRequestedTime: severeImpactWithConvid
       * (2 ** estimateNumberOfDays(periodType, timeToElapse))
       // severeImpactPerDay: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)),
