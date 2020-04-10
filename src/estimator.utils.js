@@ -21,8 +21,8 @@ const computeInfectionsByRequestedTime = (currentlyInfectedWithConvid, powerOfFa
 );
 
 const computeImpactOfInfection = (
-  dataCurrentlyInfected, value = 1
-) => (Math.floor((dataCurrentlyInfected * 512) / 28) * value);
+  dataCurrentlyInfected, data, value = 1
+) => (dataCurrentlyInfected * (2 ** Math.trunc(data / 3)) * value);
 
 module.exports = {
   currentlyInfectedAndSevereImpact,

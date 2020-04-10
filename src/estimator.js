@@ -20,11 +20,26 @@ const inputData = {
   totalHospitalBeds: 1380614
 };
 
+// const inputData = {
+//   region: {
+//     name: 'Africa',
+//     avgAge: 19.7,
+//     avgDailyIncomeInUSD: 4,
+//     avgDailyIncomePopulation: 0.73
+//   },
+//   periodType: 'days',
+//   timeToElapse: 38,
+//   reportedCases: 2747,
+//   population: 92931687,
+//   totalHospitalBeds: 678874
+// };
+
 const covid19ImpactEstimator = (data) => {
   const input = data;
   // const {
   //   periodType, timeToElapse, totalHospitalBeds, region
   // } = data;
+  const { timeToElapse } = data;
   // const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = region;
 
   const currentlyInfectedWithConvid = currentlyInfectedAndSevereImpact(inputData, 10);
@@ -42,10 +57,11 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
-      infectionsByRequestedTime: currentlyInfectedWithConvid * 512,
-      impactPerDay: computeImpactOfInfection(currentlyInfectedWithConvid),
-      impactOver1Week: computeImpactOfInfection(currentlyInfectedWithConvid, 7),
-      impactOver1Month: computeImpactOfInfection(currentlyInfectedWithConvid, 30)
+      infectionsByRequestedTime: currentlyInfectedWithConvid
+      * (2 ** Math.trunc(data.timeToElapse / 3)),
+      impactPerDay: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse),
+      impactOver1Week: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse, 7),
+      impactOver1Month: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse, 30)
       // severeCasesByRequestedTime: computedInfectionsByRequestedTime * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTime * 0.15),
@@ -59,10 +75,10 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      infectionsByRequestedTime: severeImpactWithConvid * 512,
-      severeImpactPerDay: computeImpactOfInfection(severeImpactWithConvid),
-      severeImpactOver1Week: computeImpactOfInfection(severeImpactWithConvid, 7),
-      severeImpactOver1Month: computeImpactOfInfection(severeImpactWithConvid, 30)
+      infectionsByRequestedTime: severeImpactWithConvid * (2 ** Math.trunc(data.timeToElapse / 3)),
+      severeImpactPerDay: computeImpactOfInfection(severeImpactWithConvid, timeToElapse),
+      severeImpactOver1Week: computeImpactOfInfection(severeImpactWithConvid, timeToElapse, 7),
+      severeImpactOver1Month: computeImpactOfInfection(severeImpactWithConvid, timeToElapse, 30)
       // severeCasesByRequestedTime: computedInfectionsByRequestedTimeSevere * 0.15,
       // hospitalBedsByRequestedTime:
       // (totalHospitalBeds * 0.35) - (computedInfectionsByRequestedTimeSevere * 0.15),
