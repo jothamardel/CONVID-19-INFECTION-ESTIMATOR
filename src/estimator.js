@@ -50,23 +50,22 @@ const covid19ImpactEstimator = (data) => {
   const casesReportedForImpact = casesReported(reportedCases, 10);
   const casesReportedForSevereImpact = casesReported(reportedCases, 50);
   return {
-    estimate: {
-      imapct: {
-        currentlyInfected: casesReportedForImpact,
-        infectionsByRequestedTime: casesReportedForImpact
-        * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
-      },
-      severeImpact: {
-        currentlyInfected: casesReportedForSevereImpact,
-        infectionsByRequestedTime: casesReportedForSevereImpact
-        * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
-      }
+    data: data,
+    imapct: {
+      currentlyInfected: casesReportedForImpact,
+      infectionsByRequestedTime: casesReportedForImpact
+      * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
+    },
+    severeImpact: {
+      currentlyInfected: casesReportedForSevereImpact,
+      infectionsByRequestedTime: casesReportedForSevereImpact
+      * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
     }
   };
 };
 
 // covid19ImpactEstimator(inputData);
 
-// console.log(covid19ImpactEstimator(inputData));
+console.log(covid19ImpactEstimator(inputData));
 
 export default covid19ImpactEstimator;
