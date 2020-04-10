@@ -58,7 +58,7 @@ const covid19ImpactEstimator = (data) => {
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
       infectionsByRequestedTime: currentlyInfectedWithConvid
-      * (2 ** Math.trunc(data.timeToElapse / 3)),
+      * (2 ** Math.trunc(timeToElapse / 3)),
       impactPerDay: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse),
       impactOver1Week: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse, 7),
       impactOver1Month: computeImpactOfInfection(currentlyInfectedWithConvid, timeToElapse, 30)
