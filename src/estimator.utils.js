@@ -7,7 +7,7 @@ const estimateNumberOfDays = (periodType, time) => {
   if (period === 'days') {
     return time;
   } if (period === 'weeks') {
-    return time  * 7;
+    return time * 7;
   } if (period === 'months') {
     return time * 30;
   }
