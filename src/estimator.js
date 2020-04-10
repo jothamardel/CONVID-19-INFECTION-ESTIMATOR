@@ -60,9 +60,9 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyInfected: currentlyInfectedWithConvid,
-      // infectionsByRequestedTime: 2 ** estimateNumberOfDays(periodType, timeToElapse)
-      infectionsByRequestedTime: currentlyInfectedWithConvid
-      * (2 ** estimateNumberOfDays(periodType, timeToElapse))
+      infectionsByRequestedTime: 2 ** estimateNumberOfDays(periodType, timeToElapse)
+      // infectionsByRequestedTime: currentlyInfectedWithConvid
+      // * (2 ** estimateNumberOfDays(periodType, timeToElapse))
       // impactPerDay: currentlyInfectedWithConvid
       // * (2 ** Math.trunc(timeToElapse / 3)),
       // impactOver1Week: currentlyInfectedWithConvid
@@ -82,9 +82,9 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyInfected: severeImpactWithConvid,
-      // infectionsByRequestedTime: 2 ** estimateNumberOfDays(periodType, timeToElapse)
-      infectionsByRequestedTime: severeImpactWithConvid
-      * (2 ** estimateNumberOfDays(periodType, timeToElapse))
+      infectionsByRequestedTime: 2 ** estimateNumberOfDays(periodType, timeToElapse)
+      // infectionsByRequestedTime: severeImpactWithConvid
+      // * (2 ** estimateNumberOfDays(periodType, timeToElapse))
       // severeImpactPerDay: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)),
       // severeImpactOver1Week: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)) * 7,
       // severeImpactOver1Month: severeImpactWithConvid * (2 ** Math.trunc(timeToElapse / 3)) * 30
