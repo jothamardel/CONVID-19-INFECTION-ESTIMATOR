@@ -33,11 +33,11 @@ const infectionsByRequestedTime = (typeOfPeriod, elapseTime) => {
   const period = typeOfPeriod.toLowerCase();
   switch (period) {
     case 'weeks':
-      return Math.trunc((elapseTime * 7) / 3);
+      return parseInt(((elapseTime * 7) / 3), 10);
     case 'months':
-      return Math.trunc((elapseTime * 30) / 3);
+      return parseInt(((elapseTime * 30) / 3), 10);
     default:
-      return Math.trunc(elapseTime / 3);
+      return parseInt((elapseTime / 3), 10);
   }
 };
 
