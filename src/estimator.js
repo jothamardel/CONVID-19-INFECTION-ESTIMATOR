@@ -33,11 +33,11 @@ const infectionsByRequestedTime = (typeOfPeriod, elapseTime) => {
   const period = typeOfPeriod.toLowerCase();
   switch (period) {
     case 'weeks':
-      return Math.trunc(elapseTime * 7);
+      return Math.trunc(elapseTime / 3) * 7;
     case 'months':
-      return Math.trunc(elapseTime * 30);
+      return Math.trunc(elapseTime / 3) * 30;
     default:
-      return Math.trunc(elapseTime);
+      return Math.trunc(elapseTime / 3);
   }
 };
 
@@ -57,7 +57,7 @@ const covid19ImpactEstimator = (data) => {
       severeImpact: {
         currentlyInfected: casesReportedForSevereImpact,
         infectionsByRequestedTime: casesReportedForSevereImpact
-        * (2 ** parseInt((infectionsByRequestedTime(periodType, timeToElapse) / 3), 10))
+        * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
       }
     }
   };
