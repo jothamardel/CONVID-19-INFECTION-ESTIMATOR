@@ -49,7 +49,7 @@ const covid19ImpactEstimator = (data) => {
   return {
     data,
     estimate: {
-      imapact: {
+      impact: {
         currentlyInfected: casesReportedForImpact,
         infectionsByRequestedTime: casesReportedForImpact
         * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
