@@ -46,7 +46,7 @@ const covid19ImpactEstimator = (data) => {
   const { reportedCases, periodType, timeToElapse } = data;
   const casesReportedForImpact = casesReported(reportedCases, 10);
   const casesReportedForSevereImpact = casesReported(reportedCases, 50);
-  return {
+  return ({
     data,
     estimate: {
       impact: {
@@ -60,7 +60,7 @@ const covid19ImpactEstimator = (data) => {
         * (2 ** infectionsByRequestedTime(periodType, timeToElapse))
       }
     }
-  };
+  });
 };
 
 // covid19ImpactEstimator(inputData);
